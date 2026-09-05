@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: speech-disorder-detection-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && pip install -r BACKEND/requirements.txt"
+    startCommand: "uvicorn BACKEND.app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

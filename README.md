@@ -9,6 +9,19 @@
 
 ---
 
+## 🌐 Live Public Deployment & Links
+
+| Service | Target | Public URL | Description |
+| :--- | :--- | :--- | :--- |
+| **Frontend Studio** | Vercel (Production) | [speech-disorder-detection.vercel.app](https://speech-disorder-detection.vercel.app) | Live Web Application Studio |
+| **Frontend Local** | Localhost | `http://localhost:5173` | React 19 + Vite Dev Server |
+| **Backend API** | Localhost | `http://127.0.0.1:8000` | FastAPI ML Microservice |
+| **Swagger Docs** | Interactive API | `http://127.0.0.1:8000/docs` | OpenAPI / Swagger Interface |
+| **ReDoc UI** | Academic API Docs | `http://127.0.0.1:8000/redoc` | Full endpoint specifications |
+| **GitHub Repo** | Source Control | [github.com/suprathikrao/Speech-Disorder-Detection](https://github.com/suprathikrao/Speech-Disorder-Detection) | Public Repository |
+
+---
+
 ## 1. Project Overview
 Speech disorders such as **Dysarthria**, **Dysphonia**, and **Stuttering** severely impact verbal communication, social interaction, and quality of life. Traditional diagnosis requires specialized clinical acoustic evaluation and perceptual speech assessments. 
 
