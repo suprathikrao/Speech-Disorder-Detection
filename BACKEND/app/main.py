@@ -16,7 +16,7 @@ from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException, sta
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
+from sqlalchemy import desc, text
 
 from app.config import (
     API_TITLE, API_VERSION, API_DESCRIPTION,
@@ -60,10 +60,9 @@ def health_check(db: Session = Depends(get_db)):
     """System health check, MySQL connectivity, and ML model readiness."""
     db_status = "Connected"
     try:
-        db.execute(text("SELECT 1") if 'text' in globals() else None)
-    except Exception:
-        # Simple query
-        pass
+        db.execute(text("SELECT 1"))
+    except Exception as e:
+        db_status = f"Disconnected ({e})"
 
     model_ready = os.path.exists(MODELS_DIR / "best_model.joblib")
     sample_counts = count_data_samples()

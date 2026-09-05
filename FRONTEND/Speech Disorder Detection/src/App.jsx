@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // API Base URL - points to FastAPI backend (or production backend URL via VITE_API_URL)
@@ -36,7 +36,6 @@ export default function App() {
   const [historyRecords, setHistoryRecords] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [historySearch, setHistorySearch] = useState('');
-  const [selectedDetail, setSelectedDetail] = useState(null);
 
   // Dataset State
   const [datasetStats, setDatasetStats] = useState({});
@@ -364,7 +363,9 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
         if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
           try {
             audioContextRef.current.close();
-          } catch {}
+          } catch {
+            // Context already closed or unavailable
+          }
         }
       };
 

@@ -1,11 +1,34 @@
 {
-  "buildCommand": "cd \"FRONTEND/Speech Disorder Detection\" && npm install && npm run build",
-  "outputDirectory": "FRONTEND/Speech Disorder Detection/dist",
-  "framework": "vite",
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "FRONTEND/Speech Disorder Detection/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/docs",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "FRONTEND/Speech Disorder Detection/$1"
     }
   ]
 }

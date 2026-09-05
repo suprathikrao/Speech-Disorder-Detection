@@ -11,12 +11,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent  # d:\SDD
 BACKEND_DIR = BASE_DIR / "BACKEND"
 DATA_DIR = BASE_DIR / "data"
 MODELS_DIR = BASE_DIR / "models"
-UPLOADS_DIR = BACKEND_DIR / "uploads"
+# Ensure directories exist (use /tmp on Vercel serverless)
+if os.getenv("VERCEL"):
+    UPLOADS_DIR = Path("/tmp") / "uploads"
+else:
+    UPLOADS_DIR = BACKEND_DIR / "uploads"
 
-# Ensure directories exist
-os.makedirs(DATA_DIR, exist_ok=True)
-os.makedirs(MODELS_DIR, exist_ok=True)
-os.makedirs(UPLOADS_DIR, exist_ok=True)
+try:
+    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(MODELS_DIR, exist_ok=True)
+    os.makedirs(UPLOADS_DIR, exist_ok=True)
+except Exception:
+    pass
 
 # Database Configuration
 # User provided: Root115:suprathik123@127.0.0.1:3306

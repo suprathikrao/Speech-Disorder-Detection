@@ -3,7 +3,9 @@ Database Session & Connection Management
 B.Tech Major Project - Dept. of Information Technology
 """
 
+import os
 import sys
+from pathlib import Path
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import DATABASE_URL, MYSQL_SERVER_URL, DB_NAME, BACKEND_DIR
@@ -41,7 +43,10 @@ try:
     print(f"Connected successfully to primary database at {DATABASE_URL}")
 except Exception as err:
     print(f"Warning: Primary database connection failed ({err}). Falling back to local SQLite...")
-    sqlite_path = BACKEND_DIR / "speech_disorder_local.db"
+    if os.getenv("VERCEL"):
+        sqlite_path = Path("/tmp") / "speech_disorder_local.db"
+    else:
+        sqlite_path = BACKEND_DIR / "speech_disorder_local.db"
     engine = create_engine(f"sqlite:///{sqlite_path}", connect_args={"check_same_thread": False})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
