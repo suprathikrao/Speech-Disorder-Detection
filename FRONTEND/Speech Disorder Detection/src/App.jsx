@@ -1,10 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
+import LoginPage from './components/LoginPage';
 
 // API Base URL - points to FastAPI backend (or production backend URL via VITE_API_URL)
 const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 export default function App() {
+  // Authentication State
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('acoustiscreen_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [activeTab, setActiveTab] = useState('studio'); // studio | benchmarks | history | dataset
   const [systemHealth, setSystemHealth] = useState({ status: 'connecting', database: 'checking', models_ready: false });
   
@@ -488,6 +499,25 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
     }
   };
 
+  // Authentication Handlers
+  const handleLogin = (userData) => {
+    setCurrentUser(userData);
+    try {
+      localStorage.setItem('acoustiscreen_user', JSON.stringify(userData));
+    } catch (e) {
+      console.error('Failed to save session:', e);
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    try {
+      localStorage.removeItem('acoustiscreen_user');
+    } catch (e) {
+      console.error('Failed to clear session:', e);
+    }
+  };
+
   // Helper for disorder badge styling
   const getBadgeClass = (clsName) => {
     const c = (clsName || '').toLowerCase();
@@ -497,6 +527,11 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
     if (c.includes('stutter')) return 'badge-stuttering';
     return 'badge-normal';
   };
+
+  // If user is not authenticated, render the dedicated clinical LoginPage
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   return (
     <div className="app-container">
@@ -518,13 +553,39 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
           </div>
         </div>
 
-        {/* System & DB Status Badge */}
+        {/* System & DB Status Badge + User Account Badge */}
         <div className="header-meta">
-          <div className="status-pill">
-            <span className={`status-dot ${systemHealth.status === 'healthy' ? 'online' : 'offline'}`}></span>
-            <span>API: {systemHealth.status.toUpperCase()}</span>
-            <span className="status-divider">|</span>
-            <span>MySQL 3306: {systemHealth.database}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div className="status-pill">
+              <span className={`status-dot ${systemHealth.status === 'healthy' ? 'online' : 'offline'}`}></span>
+              <span>API: {systemHealth.status.toUpperCase()}</span>
+              <span className="status-divider">|</span>
+              <span>MySQL 3306: {systemHealth.database}</span>
+            </div>
+
+            {/* Authenticated Clinician Badge */}
+            <div className="user-account-badge">
+              <div className="user-avatar-circle">
+                {currentUser.initials || 'SL'}
+              </div>
+              <div className="user-meta-text">
+                <span className="user-display-name">{currentUser.name || 'Clinical Staff'}</span>
+                <span className="user-role-label">{currentUser.badge || 'Examiner'}</span>
+              </div>
+              <button
+                type="button"
+                className="signout-btn"
+                onClick={handleLogout}
+                title="Sign out of clinical session"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                <span>Exit</span>
+              </button>
+            </div>
           </div>
 
           <nav className="header-nav">
