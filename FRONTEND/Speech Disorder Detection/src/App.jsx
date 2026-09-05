@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-// API Base URL - points to FastAPI backend
-const API_BASE = 'http://127.0.0.1:8000';
+// API Base URL - points to FastAPI backend (or production backend URL via VITE_API_URL)
+const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('studio'); // studio | benchmarks | history | dataset
