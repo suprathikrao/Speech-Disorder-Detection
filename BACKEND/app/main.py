@@ -12,6 +12,14 @@ import shutil
 from pathlib import Path
 from typing import Optional, List
 
+# Ensure BACKEND and project root are in sys.path
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
+_PROJECT_ROOT = _BACKEND_DIR.parent
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(1, str(_PROJECT_ROOT))
+
 from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse

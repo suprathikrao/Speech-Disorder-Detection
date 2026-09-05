@@ -6,6 +6,15 @@ B.Tech Major Project - Dept. of Information Technology
 import os
 import sys
 from pathlib import Path
+
+# Ensure BACKEND and project root are in sys.path when executed directly or imported
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
+_PROJECT_ROOT = _BACKEND_DIR.parent
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(1, str(_PROJECT_ROOT))
+
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import DATABASE_URL, MYSQL_SERVER_URL, DB_NAME, BACKEND_DIR
