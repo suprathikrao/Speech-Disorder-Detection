@@ -1,0 +1,10 @@
+{
+  "name": "speech-disorder-detection-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run dev --prefix \"FRONTEND/Speech Disorder Detection\"",
+    "build": "npm run build --prefix \"FRONTEND/Speech Disorder Detection\"",
+    "preview": "npm run preview --prefix \"FRONTEND/Speech Disorder Detection\""
+  }
+}

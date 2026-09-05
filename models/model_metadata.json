@@ -1,0 +1,271 @@
+{
+  "timestamp": "2026-09-05T20:05:55.684637",
+  "best_model": "Support Vector Machine (SVM)",
+  "classes": [
+    "dysarthria",
+    "dysphonia",
+    "normal",
+    "stuttering"
+  ],
+  "feature_names": [
+    "mfcc_1_mean",
+    "mfcc_1_std",
+    "mfcc_2_mean",
+    "mfcc_2_std",
+    "mfcc_3_mean",
+    "mfcc_3_std",
+    "mfcc_4_mean",
+    "mfcc_4_std",
+    "mfcc_5_mean",
+    "mfcc_5_std",
+    "mfcc_6_mean",
+    "mfcc_6_std",
+    "mfcc_7_mean",
+    "mfcc_7_std",
+    "mfcc_8_mean",
+    "mfcc_8_std",
+    "mfcc_9_mean",
+    "mfcc_9_std",
+    "mfcc_10_mean",
+    "mfcc_10_std",
+    "mfcc_11_mean",
+    "mfcc_11_std",
+    "mfcc_12_mean",
+    "mfcc_12_std",
+    "mfcc_13_mean",
+    "mfcc_13_std",
+    "pitch_mean",
+    "pitch_std",
+    "pitch_min",
+    "pitch_max",
+    "rms_mean",
+    "rms_std",
+    "zcr_mean",
+    "zcr_std",
+    "spectral_centroid_mean",
+    "spectral_centroid_std",
+    "spectral_rolloff_mean",
+    "spectral_rolloff_std",
+    "spectral_bandwidth_mean",
+    "spectral_bandwidth_std"
+  ],
+  "num_features": 40,
+  "total_samples": 80,
+  "train_samples": 64,
+  "test_samples": 16,
+  "models_benchmark": {
+    "Support Vector Machine (SVM)": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ]
+      ],
+      "classification_report": {
+        "dysarthria": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "dysphonia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "normal": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "stuttering": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        }
+      }
+    },
+    "Random Forest": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ]
+      ],
+      "classification_report": {
+        "dysarthria": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "dysphonia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "normal": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "stuttering": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        }
+      }
+    },
+    "Logistic Regression": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ]
+      ],
+      "classification_report": {
+        "dysarthria": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "dysphonia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "normal": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "stuttering": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 4.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 16.0
+        }
+      }
+    }
+  }
+}

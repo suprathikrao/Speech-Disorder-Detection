@@ -1,0 +1,10 @@
+{
+  "name": "frontend-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run dev --prefix \"Speech Disorder Detection\"",
+    "build": "npm run build --prefix \"Speech Disorder Detection\"",
+    "preview": "npm run preview --prefix \"Speech Disorder Detection\""
+  }
+}
