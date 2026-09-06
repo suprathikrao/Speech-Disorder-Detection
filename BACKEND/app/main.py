@@ -53,14 +53,34 @@ app = FastAPI(
     description=API_DESCRIPTION
 )
 
-# Enable CORS for frontend Vite dev server (e.g. localhost:5173 or localhost:3000)
+# Enable CORS for Vercel production frontend, local dev servers, and preview environments
+ALLOWED_ORIGINS = [
+    "https://speech-disorder-detection-n3kx.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", tags=["Root"])
+def root():
+    return {
+        "status": "online",
+        "service": API_TITLE,
+        "version": API_VERSION,
+        "docs_url": "/docs",
+        "health_url": "/api/health"
+    }
 
 
 @app.get("/api/health")

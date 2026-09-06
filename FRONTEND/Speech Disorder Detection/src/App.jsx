@@ -2,10 +2,34 @@ import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import LoginPage from './components/LoginPage';
 
-// API Base URL - points to FastAPI backend (or production backend URL via VITE_API_URL)
-const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+// API Base URL - points to Render backend in production, or local dev / VITE_API_URL override
+const API_BASE = import.meta.env.VITE_API_URL || 'https://speech-disorder-detection-1.onrender.com';
 
 export default function App() {
+  // Routing State - tracks current URL pathname (e.g. '/login', '/')
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname || '/');
+
+  // Navigation helper to update browser URL and internal state
+  const navigateTo = (path, replace = false) => {
+    if (window.location.pathname !== path) {
+      if (replace) {
+        window.history.replaceState(null, '', path);
+      } else {
+        window.history.pushState(null, '', path);
+      }
+    }
+    setCurrentPath(path);
+  };
+
+  // Keep state in sync with browser Back / Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || '/');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Authentication State
   const [currentUser, setCurrentUser] = useState(() => {
     try {
@@ -15,6 +39,15 @@ export default function App() {
       return null;
     }
   });
+
+  // Ensure unauthenticated users see /login in their browser URL bar
+  useEffect(() => {
+    if (!currentUser) {
+      if (window.location.pathname !== '/login') {
+        navigateTo('/login', true);
+      }
+    }
+  }, [currentUser]);
 
   const [activeTab, setActiveTab] = useState('studio'); // studio | benchmarks | history | dataset
   const [systemHealth, setSystemHealth] = useState({ status: 'connecting', database: 'checking', models_ready: false });
@@ -507,6 +540,7 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
     } catch (e) {
       console.error('Failed to save session:', e);
     }
+    navigateTo('/', false);
   };
 
   const handleLogout = () => {
@@ -516,6 +550,7 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
     } catch (e) {
       console.error('Failed to clear session:', e);
     }
+    navigateTo('/login', false);
   };
 
   // Helper for disorder badge styling
@@ -528,9 +563,15 @@ function encodePCMToWAV(samples, sampleRate = 16000) {
     return 'badge-normal';
   };
 
-  // If user is not authenticated, render the dedicated clinical LoginPage
-  if (!currentUser) {
-    return <LoginPage onLogin={handleLogin} />;
+  // If user is not authenticated OR currently on the /login route, render the dedicated clinical LoginPage
+  if (!currentUser || currentPath === '/login') {
+    return (
+      <LoginPage 
+        onLogin={handleLogin} 
+        currentUser={currentUser}
+        onReturnToDashboard={() => navigateTo('/')}
+      />
+    );
   }
 
   return (

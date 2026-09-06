@@ -27,8 +27,11 @@
       "dest": "api/index.py"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "FRONTEND/Speech Disorder Detection/$1"
+      "dest": "FRONTEND/Speech Disorder Detection/index.html"
     }
   ]
 }

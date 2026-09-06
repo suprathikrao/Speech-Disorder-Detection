@@ -32,7 +32,7 @@ const DEMO_PROFILES = [
   }
 ];
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, currentUser, onReturnToDashboard }) {
   const [mode, setMode] = useState('credentials'); // 'credentials' | 'demo'
   const [email, setEmail] = useState('dr.suprathik@acoustiscreen.health');
   const [password, setPassword] = useState('AcoustiScreen2026!');
@@ -171,6 +171,42 @@ export default function LoginPage({ onLogin }) {
               Sign in to initiate automated acoustic patient screenings and model metrics.
             </p>
           </div>
+
+          {currentUser && onReturnToDashboard && (
+            <div style={{
+              background: 'rgba(14, 165, 233, 0.12)',
+              border: '1px solid rgba(14, 165, 233, 0.3)',
+              borderRadius: '10px',
+              padding: '10px 14px',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '10px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#e2e8f0' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+                <span>Signed in as <strong>{currentUser.name}</strong></span>
+              </div>
+              <button
+                type="button"
+                onClick={onReturnToDashboard}
+                style={{
+                  background: '#0284c7',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '6px 12px',
+                  fontSize: '0.8rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                Go to Studio &rarr;
+              </button>
+            </div>
+          )}
 
           {/* Mode Switcher */}
           <div className="login-mode-tabs" role="tablist">
