@@ -11,7 +11,12 @@
   ],
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/assets/(.*)",
+      "dest": "FRONTEND/Speech Disorder Detection/assets/$1"
+    },
+    {
+      "src": "/(favicon\\..*|icons\\..*|_redirects)",
+      "dest": "FRONTEND/Speech Disorder Detection/$1"
     },
     {
       "src": "/(.*)",
