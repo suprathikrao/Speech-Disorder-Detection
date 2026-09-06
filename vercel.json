@@ -1,26 +1,11 @@
 {
-  "version": 2,
-  "builds": [
+  "installCommand": "npm install --prefix \"FRONTEND/Speech Disorder Detection\"",
+  "buildCommand": "npm run build --prefix \"FRONTEND/Speech Disorder Detection\"",
+  "outputDirectory": "FRONTEND/Speech Disorder Detection/dist",
+  "rewrites": [
     {
-      "src": "FRONTEND/Speech Disorder Detection/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "FRONTEND/Speech Disorder Detection/assets/$1"
-    },
-    {
-      "src": "/(favicon\\..*|icons\\..*|_redirects)",
-      "dest": "FRONTEND/Speech Disorder Detection/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "FRONTEND/Speech Disorder Detection/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
